@@ -9,7 +9,7 @@ const getAll = () => {
 
 // 2. create a function called createMovie that accepts a "movie" param
 const createMovie = (movie) => {
-    return TicketsModel.createMovie(movie)
+    return TicketsModel.create(movie)
 };
 
 
@@ -20,11 +20,13 @@ const deleteMovie = (movieName) => {
 
 // 4. create a function called getById that accepts an "id" param and finds one ticket
 // hint: in your db query, you will use objectId like this: ObjectId(id)
-
+const getById = (id) => {
+    return TicketsModel.getById(ObjectId(id))
+}
 
 module.exports = {
     getAll,
     createMovie,
     deleteMovie,
-
+    getById
 }

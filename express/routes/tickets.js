@@ -5,7 +5,8 @@ const TicketsController = require('../controllers/tickets')
 // Create a route for getting all movies/tickets from the db
 // This corresponds to item 1 in the controller
 router.get('/', (req, res) => {
-    TicketsController.getAll().then(results => res.json(results));
+    TicketsController.getAll()
+    .then(results => res.json(results));
 });
 
 
@@ -17,13 +18,28 @@ router.post('/', (req, res) => {
 });
 
 
+
+router.delete('/:name', (req, res) => {
+    res.json({error: 'nope'})
+})
 // Create a route for deleting ONE movie by it's name
 // This corresponds to item 3 in the controller
-router.delete('/', (req, res) => {
-    TicketsController.deleteMovie(req.body).then(result => res.json(result));
+router.delete('/:name', (req, res) => {
+    TicketsController.deleteMovie(req.body)
+    .then(result => res.json(result));
 })
+
 
 // Create a route for getting ONE movie by it's id
 // This corresponds to item 4 in the controller
+router.get('/:name', (req,res) => {
+    TicketsController.getOne(request.params.name)
+    .then(result => {
+        if (!result) throw new Error('No movie found')
+        res.json(result)
+    })
+    .catch(err => res.status(404).send(err.message))
+})
+
 
 module.exports = router
