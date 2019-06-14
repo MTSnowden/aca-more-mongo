@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     .then(results => res.json(results));
 });
 
-
 // Create a route for creating a movie
 // This corresponds to item 2 in the controller
 router.post('/', (req, res) => {
@@ -17,29 +16,21 @@ router.post('/', (req, res) => {
     .then(movie => res.json(movie));
 });
 
-
-
-router.delete('/:name', (req, res) => {
+router.delete('/', (req, res) => {
     res.json({error: 'nope'})
 })
 // Create a route for deleting ONE movie by it's name
 // This corresponds to item 3 in the controller
 router.delete('/:name', (req, res) => {
-    TicketsController.deleteMovie(req.body)
-    .then(result => res.json(result));
+    TicketsController.deleteMovie(req.params.name)
+    .then(() => res.json({status: 'movie gone'}));
 })
-
 
 // Create a route for getting ONE movie by it's id
 // This corresponds to item 4 in the controller
-router.get('/:name', (req,res) => {
-    TicketsController.getOne(request.params.name)
-    .then(result => {
-        if (!result) throw new Error('No movie found')
-        res.json(result)
-    })
-    .catch(err => res.status(404).send(err.message))
+router.get('/:id', (req,res) => {
+    TicketsController.getById(request.params.id)
+    .then((movie) => res.json(movie))
 })
-
 
 module.exports = router
